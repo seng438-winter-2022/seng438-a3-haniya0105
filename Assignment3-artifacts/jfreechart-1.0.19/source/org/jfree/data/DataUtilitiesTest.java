@@ -555,6 +555,17 @@ public class DataUtilitiesTest {
         assertEquals(result, 20.0, .000000001d);
         // tear-down: NONE in this test method
     }
+     //By: Beau
+    //equal(double[][] a, double[][]b) method
+    //length of a is not equal to length of b
+    @Test  
+    public void checkNotEqualLengthArrays() {
+         double a[][] = {{1, 6, 5}, {2, 3}};
+         double b[][] = {{1, 8, -2, 5}, {1, 7, 13, 2}, {13, -7, 8, 4}};
+         boolean actualResult = DataUtilities.equal(b,a);
+         Assert.assertFalse("Expected result is False", actualResult);
+     }
+	
 	    @After
     public void tearDown() throws Exception {
     }
