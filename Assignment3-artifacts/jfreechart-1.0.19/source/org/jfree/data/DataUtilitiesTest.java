@@ -431,7 +431,98 @@ public class DataUtilitiesTest {
          boolean actualResult = DataUtilities.equal(b,a);
          Assert.assertFalse("Expected result is False", actualResult);
      }
-	
+    //By: Apostolos
+    //calculateRowTotal(Values2D data, int row, int[] validCols) method
+    //Equivalence test using mocking (legal value); calculating row total for three specific columns
+    //one column has a null value
+    //Expected outcome: 15.0
+    @Test 
+    public void calculateRowTotalForFourColumnsOneNullValue() {
+        // setup
+        Mockery mockingContext = new Mockery();
+        final Values2D values = mockingContext.mock(Values2D.class);
+        mockingContext.checking(new Expectations() {
+            {
+                one(values).getColumnCount();
+                will(returnValue(4));
+                one(values).getValue(0, 0);
+                will(returnValue(7.5));
+                one(values).getValue(0, 1);
+                will(returnValue(2.5));
+                one(values).getValue(0, 2);
+                will(returnValue(-5.5));
+                one(values).getValue(0, 3);
+                will(returnValue(null));
+            }
+        });
+        // exercise
+        int []arr = { 0, 2, 3};
+        double result = DataUtilities.calculateRowTotal(values, 0, arr);
+        // verify
+        assertEquals(result, 2.0, .000000001d);
+        // tear-down: NONE in this test method
+    }
+    //By: Apostolos
+    //calculateColumnTotal(Values2D data, int column, int[] ValidRows) method
+    //Equivalence test using mocking (legal value); calculating row total for three specific rows
+    //One row contains invalid value (null)
+    //Expected outcome: 2.0
+    @Test 
+    public void calculateColumnTotalForThreeRowsOneNullValue() {
+        // setup
+        Mockery mockingContext = new Mockery();
+        final Values2D values = mockingContext.mock(Values2D.class);
+        mockingContext.checking(new Expectations() {
+            {
+                one(values).getRowCount();
+                will(returnValue(4));
+                one(values).getValue(0, 0);
+                will(returnValue(7.5));
+                one(values).getValue(1, 0);
+                will(returnValue(2.5));
+                one(values).getValue(2, 0);
+                will(returnValue(-5.5));
+                one(values).getValue(3, 0);
+                will(returnValue(null));
+            }
+        });
+        // exercise
+        int []arr = { 0, 2, 3};
+        double result = DataUtilities.calculateColumnTotal(values, 0, arr);
+        // verify
+        assertEquals(result, 2, .000000001d);
+        // tear-down: NONE in this test method
+    }
+    
+    //By: Apostolos
+    //calculateColumnTotal(Values2D data, int column, int[] ValidRows) method
+    //Equivalence test using mocking (legal value); calculating row total for four specific rows
+    //One Invalid row is passed
+    //Expected outcome: 13.0
+    @Test 
+    public void calculateColumnTotalForThreeRowsOneInvalidRow() {
+        // setup
+        Mockery mockingContext = new Mockery();
+        final Values2D values = mockingContext.mock(Values2D.class);
+        mockingContext.checking(new Expectations() {
+            {
+                one(values).getRowCount();
+                will(returnValue(3));
+                one(values).getValue(0, 0);
+                will(returnValue(7.5));
+                one(values).getValue(1, 0);
+                will(returnValue(2.5));
+                one(values).getValue(2, 0);
+                will(returnValue(5.5));
+            }
+        });
+        // exercise
+        int []arr = { 0, 2, 3};
+        double result = DataUtilities.calculateColumnTotal(values, 0, arr);
+        // verify
+        assertEquals(result, 13, .000000001d);
+        // tear-down: NONE in this test method
+    }
 	    @After
     public void tearDown() throws Exception {
     }
