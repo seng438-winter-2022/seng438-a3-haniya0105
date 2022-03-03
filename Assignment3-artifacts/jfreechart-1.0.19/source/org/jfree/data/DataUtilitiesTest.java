@@ -420,6 +420,18 @@ public class DataUtilitiesTest {
 	    // tear-down: NONE in this test method
 	}
 	
+	//NEW TESTS------------------------------------------------
+    //By: Haniya
+    //equal(double[][] a, double[][]b) method
+    //a is not null, but b is null
+    @Test  
+    public void checkNotNullwithNullArrays() {
+         double a[][] = null;
+         double b[][] = {{1, 8, -2, 5}, {1, 7, 13, 2}, {13, -7, 8, 4}};
+         boolean actualResult = DataUtilities.equal(b,a);
+         Assert.assertFalse("Expected result is False", actualResult);
+     }
+	
 	    @After
     public void tearDown() throws Exception {
     }
