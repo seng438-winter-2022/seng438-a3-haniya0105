@@ -523,6 +523,38 @@ public class DataUtilitiesTest {
         assertEquals(result, 13, .000000001d);
         // tear-down: NONE in this test method
     }
+	
+	    //By: Josh
+    //calculateRowTotal(Values2D data, int row, int[] validCols) method
+    //Equivalence test using mocking (legal value); calculating row total for four specific columns
+    //one column is invalid
+    //Expected outcome: 15.0
+    @Test 
+    public void calculateRowTotalForFourColumnsOneInvalidColumn() {
+        // setup
+        Mockery mockingContext = new Mockery();
+        final Values2D values = mockingContext.mock(Values2D.class);
+        mockingContext.checking(new Expectations() {
+            {
+                one(values).getColumnCount();
+                will(returnValue(4));
+                one(values).getValue(0, 0);
+                will(returnValue(7.5));
+                one(values).getValue(0, 1);
+                will(returnValue(2.5));
+                one(values).getValue(0, 2);
+                will(returnValue(7.5));
+                one(values).getValue(0, 3);
+                will(returnValue(5.0));
+            }
+        });
+        // exercise
+        int []arr = { 0, 2, 3, 10};
+        double result = DataUtilities.calculateRowTotal(values, 0, arr);
+        // verify
+        assertEquals(result, 20.0, .000000001d);
+        // tear-down: NONE in this test method
+    }
 	    @After
     public void tearDown() throws Exception {
     }
